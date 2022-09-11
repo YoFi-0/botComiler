@@ -112,9 +112,18 @@ const functions = {
 					.setLabel('Click me!')
 					.setStyle(discord.ButtonStyle.Primary),
 			)
+        
+        if(config[3].content == true){
+            row.addComponents(
+                new discord.ButtonBuilder()
+                    .setCustomId('button3')
+                    .setLabel('Click me!')
+                    .setStyle(config[2].content ? config[2].content : 'Primary' as any),
+            )
+        }
         massge.channel.send({
             content:'a yow',
-            components: [row as any] 
+            components: [row as any, ] 
         })
     }
     if(massge.content == 'AllUsers'){
@@ -145,6 +154,11 @@ ${JSON.stringify(users)}
         return
     }
     interaction.reply('msg test Complited')
+}), new Custom_id('button3', ({interaction, client}) => {
+    if(!interaction.isButton()){
+        return
+    }
+    interaction.reply('msg test Complited with button 3')
 }), new Custom_id('insert_data', async({interaction, client}) => {
     if(!interaction.isModalSubmit()){
         return
@@ -203,7 +217,7 @@ ${JSON.stringify(users)}
         }
         const modal = new discord.ModalBuilder()
 			.setCustomId('insert_data')
-			.setTitle('some info fro m you please')
+			.setTitle(config[1].content as string)
 
 		// Add components to modal
 
@@ -235,7 +249,7 @@ ${JSON.stringify(users)}
 				new discord.ButtonBuilder()
 					.setCustomId('button1')
 					.setLabel('Click me!')
-					.setStyle(discord.ButtonStyle.Primary),
+					.setStyle(config[2].content ? config[2].content : 'Primary' as any),
 			)
         await sleep(3000)
         interaction.editReply({

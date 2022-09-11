@@ -64,9 +64,15 @@ const config_json_1 = __importDefault(require("../config.json"));
                         .setCustomId('button2')
                         .setLabel('Click me!')
                         .setStyle(discord_js_1.default.ButtonStyle.Primary));
+                    if (config_json_1.default[3].content == true) {
+                        row.addComponents(new discord_js_1.default.ButtonBuilder()
+                            .setCustomId('button3')
+                            .setLabel('Click me!')
+                            .setStyle(config_json_1.default[2].content ? config_json_1.default[2].content : 'Primary'));
+                    }
                     massge.channel.send({
                         content: 'a yow',
-                        components: [row]
+                        components: [row,]
                     });
                 }
                 if (massge.content == 'AllUsers') {
@@ -98,6 +104,11 @@ ${JSON.stringify(users)}
                     return;
                 }
                 interaction.reply('msg test Complited');
+            }), new Custom_id('button3', ({ interaction, client }) => {
+                if (!interaction.isButton()) {
+                    return;
+                }
+                interaction.reply('msg test Complited with button 3');
             }), new Custom_id('insert_data', async ({ interaction, client }) => {
                 if (!interaction.isModalSubmit()) {
                     return;
@@ -156,7 +167,7 @@ ${JSON.stringify(users)}
                     }
                     const modal = new discord_js_1.default.ModalBuilder()
                         .setCustomId('insert_data')
-                        .setTitle('some info fro m you please');
+                        .setTitle(config_json_1.default[1].content);
                     // Add components to modal
                     // Create the text input components
                     const favoriteColorInput = new discord_js_1.default.TextInputBuilder()
@@ -182,7 +193,7 @@ ${JSON.stringify(users)}
                         .addComponents(new discord_js_1.default.ButtonBuilder()
                         .setCustomId('button1')
                         .setLabel('Click me!')
-                        .setStyle(discord_js_1.default.ButtonStyle.Primary));
+                        .setStyle(config_json_1.default[2].content ? config_json_1.default[2].content : 'Primary'));
                     await sleep(3000);
                     interaction.editReply({
                         content: 'click the button to complit the test',

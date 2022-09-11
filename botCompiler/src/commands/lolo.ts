@@ -1,6 +1,7 @@
 import { Command } from "../handler/commands";
 import discord from 'discord.js'
 import { sleep } from "../functions";
+import config from '../config.json'
 export default new Command({
     name:'lolo',
     description: 'this is a new command',
@@ -11,7 +12,7 @@ export default new Command({
 				new discord.ButtonBuilder()
 					.setCustomId('button1')
 					.setLabel('Click me!')
-					.setStyle(discord.ButtonStyle.Primary),
+					.setStyle(config[2].content ? config[2].content : 'Primary' as any),
 			);
         await sleep(3000)
         interaction.editReply({

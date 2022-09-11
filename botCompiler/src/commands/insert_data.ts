@@ -1,6 +1,7 @@
 import { Command } from "../handler/commands";
 import discord from 'discord.js'
 import { sleep } from "../functions";
+import config from '../config.json'
 export default new Command({
     name:'insert_data',
     description: 'this is a new command',
@@ -10,7 +11,7 @@ export default new Command({
         };
         const modal = new discord.ModalBuilder()
 			.setCustomId('insert_data')
-			.setTitle('some info fro m you please');
+			.setTitle(config[1].content as string);
 
 		// Add components to modal
 

@@ -53,7 +53,7 @@ export class Bot  extends discord.Client{
         }
         discordModals(this);
         await this.injectEveryThing();
-        await this.login(config[0].content);
+        await this.login(config[0].content as string);
     }
 
     async importFile(filePath: string) {
