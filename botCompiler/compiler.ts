@@ -32,6 +32,7 @@ type BotConfigType = {
     index:number,
     isrRequire:boolean
     inputType:string,
+    options?:string[]
     content:string | boolean | string[],
     inputTitle:string
 }[]
@@ -86,6 +87,17 @@ const getTypes = async(dirPath:string) => {
         <label>${input.inputTitle}</lable>
     </div>
     <textarea class="inputJson ${input.isrRequire ? 'requireInput' : 'optionalInput'}" data-for="${input.inputTitle}"></textarea>
+</div>
+`
+        } else if(input.inputType == 'select'){
+            htmlFinal += `<div>
+    <div>
+        <span>${input.isrRequire ? 'require *' : 'optional'}</span>
+        <label>${input.inputTitle}</lable>
+    </div>
+    <select class="inputJson ${input.isrRequire ? 'requireInput' : 'optionalInput'}" data-for="${input.inputTitle}">\n${
+        input.options!.map(option => `      <option value="${option}">${option}</option>\n`).join("")
+    }    </select>
 </div>
 `
         } else {
