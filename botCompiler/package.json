@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "dev": "nodemon ./src/handler/runner.ts",
+    "comp": "ts-node ./compiler.ts"
+  },
+  "name": "ww",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "discord-modals": "^1.3.9",
+    "discord.js": "^14.3.0",
+    "sequelize": "^6.21.6",
+    "sqlite3": "^5.0.11"
+  },
+  "devDependencies": {}
+}
