@@ -35,6 +35,7 @@ type BotConfigType = {
     options?:string[]
     content:string | boolean | string[],
     inputTitle:string
+    from:number
 }[]
 
 const getTypes = async(dirPath:string) => {
@@ -81,7 +82,7 @@ const getTypes = async(dirPath:string) => {
     var htmlFinal = ''
     configs.forEach(input => {
         if(input.inputType == 'textarea'){
-            htmlFinal += `<div>
+            htmlFinal += `<div class="inputJsonFather" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
@@ -90,7 +91,7 @@ const getTypes = async(dirPath:string) => {
 </div>
 `
         } else if(input.inputType == 'select'){
-            htmlFinal += `<div>
+            htmlFinal += `<div class="inputJsonFather" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
@@ -101,7 +102,7 @@ const getTypes = async(dirPath:string) => {
 </div>
 `
         } else {
-            htmlFinal += `<div>
+            htmlFinal += `<div class="inputJsonFather" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>

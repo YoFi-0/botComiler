@@ -18,7 +18,7 @@ export default new Event("messageCreate", async (massge:discord.Message) => {
                 new discord.ButtonBuilder()
                     .setCustomId('button3')
                     .setLabel('Click me!')
-                    .setStyle(config[2].content ? config[2].content : 'Primary' as any),
+                    .setStyle(config[4].content as any),
             );
         }
         massge.channel.send({

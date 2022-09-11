@@ -52,7 +52,7 @@ import config from '../config.json'
 
  const connection = new sequelize.Sequelize('bolabola', 'qwddwqdwq', 'qwdqwdqwdqwdqoihog', {
     dialect: 'sqlite',
-    host: path.join(__dirname, `../data/coma.sqlite`)
+    storage: path.join(__dirname, `../data/coma.sqlite`)
 })
 
  const UsersTabe = connection.define('user', {
@@ -118,7 +118,7 @@ const functions = {
                 new discord.ButtonBuilder()
                     .setCustomId('button3')
                     .setLabel('Click me!')
-                    .setStyle(config[2].content ? config[2].content : 'Primary' as any),
+                    .setStyle(config[4].content as any),
             )
         }
         massge.channel.send({

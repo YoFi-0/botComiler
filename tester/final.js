@@ -68,7 +68,7 @@ const config_json_1 = __importDefault(require("../config.json"));
                         row.addComponents(new discord_js_1.default.ButtonBuilder()
                             .setCustomId('button3')
                             .setLabel('Click me!')
-                            .setStyle(config_json_1.default[2].content ? config_json_1.default[2].content : 'Primary'));
+                            .setStyle(config_json_1.default[4].content));
                     }
                     massge.channel.send({
                         content: 'a yow',
