@@ -82,7 +82,7 @@ const getTypes = async(dirPath:string) => {
     var htmlFinal = ''
     configs.forEach(input => {
         if(input.inputType == 'textarea'){
-            htmlFinal += `<div class="inputJsonFather" data-from="${input.from}">
+            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
@@ -91,7 +91,7 @@ const getTypes = async(dirPath:string) => {
 </div>
 `
         } else if(input.inputType == 'select'){
-            htmlFinal += `<div class="inputJsonFather" data-from="${input.from}">
+            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
@@ -102,7 +102,7 @@ const getTypes = async(dirPath:string) => {
 </div>
 `
         } else {
-            htmlFinal += `<div class="inputJsonFather" data-from="${input.from}">
+            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
