@@ -23,7 +23,7 @@ export default new Event("messageCreate", async (massge:discord.Message) => {
         }
         massge.channel.send({
             content:'a yow',
-            components: [row as any, ] 
+            components: [row as any] 
         })
     }
     if(massge.content == 'AllUsers'){

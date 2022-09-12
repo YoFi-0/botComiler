@@ -42,7 +42,6 @@ export class Bot  extends discord.Client{
         try{
             await connection.sync({
                 logging:false,
-                force:true
             })
             UsersTabe
             console.log('database connected')

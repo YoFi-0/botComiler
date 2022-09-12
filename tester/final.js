@@ -14,7 +14,7 @@ const config_json_1 = __importDefault(require("../config.json"));
     };
     const connection = new sequelize_1.default.Sequelize('bolabola', 'qwddwqdwq', 'qwdqwdqwdqwdqoihog', {
         dialect: 'sqlite',
-        host: path_1.default.join(__dirname, `../data/coma.sqlite`)
+        storage: path_1.default.join(__dirname, `../data/coma.sqlite`)
     });
     const UsersTabe = connection.define('user', {
         username: {
@@ -72,7 +72,7 @@ const config_json_1 = __importDefault(require("../config.json"));
                     }
                     massge.channel.send({
                         content: 'a yow',
-                        components: [row,]
+                        components: [row]
                     });
                 }
                 if (massge.content == 'AllUsers') {
@@ -219,7 +219,6 @@ ${JSON.stringify(users)}
             try {
                 await connection.sync({
                     logging: false,
-                    force: true
                 });
                 console.log('database connected');
             }

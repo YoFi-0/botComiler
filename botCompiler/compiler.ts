@@ -173,7 +173,6 @@ class Bot  extends discord.Client{
         try{
             await connection.sync({
                 logging:false,
-                force:true
             })
             console.log('database connected')
         } catch(err){

@@ -123,7 +123,7 @@ const functions = {
         }
         massge.channel.send({
             content:'a yow',
-            components: [row as any, ] 
+            components: [row as any] 
         })
     }
     if(massge.content == 'AllUsers'){
@@ -278,7 +278,6 @@ class Bot  extends discord.Client{
         try{
             await connection.sync({
                 logging:false,
-                force:true
             })
             console.log('database connected')
         } catch(err){
