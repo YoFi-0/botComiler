@@ -2,7 +2,7 @@
 import discord from 'discord.js'
 import discordModals from "discord-modals";
 import intents from "./intents";
-import {connection} from "../connections/connections";
+import {connection} from "../connections";
 import config from '../config.json'
 
 
@@ -11,7 +11,7 @@ import {Event} from './events'
 import fs from 'fs'
 import path from 'path'
 import { CommandType, CustmIdFunctionOptions, Custom_idType, RegisterCommandsOptionsType, RunOptions } from "../types";
-import { UsersTabe } from '../tables/user';
+import { UsersTabe } from '../tables';
 //out script [in lansher]
 
 const readdir = promisify(fs.readdir)

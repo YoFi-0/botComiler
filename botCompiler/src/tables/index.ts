@@ -1,4 +1,4 @@
-import {connection} from '../connections/connections'
+import {connection} from '../connections'
 import sequelize from 'sequelize'
 export const UsersTabe = connection.define('user', {
     username:{

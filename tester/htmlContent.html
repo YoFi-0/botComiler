@@ -1,18 +1,18 @@
-<div class="inputJsonFather" data-index="0" data-from="0">
+<div class="inputJsonFather" data-index="0" data-isMany="false" data-from="0">
     <div>
         <span>require *</span>
         <label>bot token</lable>
     </div>
     <input class="inputJson requireInput" type=password data-for="bot token">
 </div>
-<div class="inputJsonFather" data-index="1" data-from="0">
+<div class="inputJsonFather" data-index="1" data-isMany="false" data-from="0">
     <div>
         <span>require *</span>
         <label>input Title</lable>
     </div>
     <input class="inputJson requireInput" type=text data-for="input Title">
 </div>
-<div class="inputJsonFather" data-index="2" data-from="0">
+<div class="inputJsonFather" data-index="2" data-isMany="false" data-from="0">
     <div>
         <span>optional</span>
         <label>buttons color</lable>
@@ -24,14 +24,14 @@
       <option value="Danger">Danger</option>
     </select>
 </div>
-<div class="inputJsonFather" data-index="3" data-from="0">
+<div class="inputJsonFather" data-index="3" data-isMany="false" data-from="0">
     <div>
         <span>optional</span>
         <label>more button</lable>
     </div>
     <input class="inputJson optionalInput" type=checkbox data-for="more button">
 </div>
-<div class="inputJsonFather" data-index="4" data-from="3">
+<div class="inputJsonFather" data-index="4" data-isMany="false" data-from="3">
     <div>
         <span>require *</span>
         <label>more button Color</lable>
@@ -42,4 +42,31 @@
       <option value="Success">Success</option>
       <option value="Danger">Danger</option>
     </select>
+</div>
+<div class="inputJsonFather" data-index="5" data-isMany="false" data-from="0">
+    <div>
+        <span>require *</span>
+        <label>prefix</lable>
+    </div>
+    <input class="inputJson requireInput" type=text data-for="prefix">
+</div>
+<div class="inputJsonFather" data-index="6" data-isMany="true" data-from="0">
+    <div data-input="many">
+        <div>
+            <span>require *</span>
+            <label>can move the users ids</lable>
+        </div>
+        <input class="inputJson requireInput" type=text data-for="can move the users ids">
+    </div>
+    <button>plus</button>
+</div>
+<div class="inputJsonFather" data-index="7" data-isMany="true" data-from="0">
+    <div data-input="many">
+        <div>
+            <span>require *</span>
+            <label>cant be moved ids</lable>
+        </div>
+        <input class="inputJson requireInput" type=text data-for="cant be moved ids">
+    </div>
+    <button>plus</button>
 </div>

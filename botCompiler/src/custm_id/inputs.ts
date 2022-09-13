@@ -1,7 +1,7 @@
 import { sleep } from "../functions";
 import sequelize from "sequelize";
 import { Custom_id } from "../handler/custom_id";
-import {UsersTabe} from '../tables/user'
+import {UsersTabe} from '../tables'
 import { DB_Users } from "../types";
 export default new Custom_id('insert_data', async({interaction, client}) => {
     if(!interaction.isModalSubmit()){

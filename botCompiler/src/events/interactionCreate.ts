@@ -14,4 +14,4 @@ export default new Event("interactionCreate", async (interaction) => {
             interaction: interaction as ExtendedInteraction,
         });
     }
-});
+})

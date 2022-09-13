@@ -50,5 +50,38 @@
         "content":"Success",
         "inputTitle":"more button Color",
         "from":3
+    },
+    {
+        "index":5,
+        "isrRequire":true,
+        "inputType":"text",
+        "content":"+",
+        "inputTitle":"prefix",
+        "from":0
+    },
+    {
+        "index":6,
+        "isrRequire":true,
+        "inputType":"text",
+        "content":[
+            "792751190089531402",
+            "932775401355350026",
+            "1017282901450174504",
+            "792751190089531402"
+        ],
+        "inputTitle":"black list ids",
+        "from":0
+    },
+    {
+        "index":7,
+        "isrRequire":true,
+        "inputType":"text",
+        "content":[
+            "626434689762197538",
+            "594157330451398658",
+            "797425316758159360"
+        ],
+        "inputTitle":"white list ids",
+        "from":0
     }
 ]

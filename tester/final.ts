@@ -3,38 +3,44 @@ import discord from 'discord.js'
 import discordModals from "discord-modals";
 import  sequelize  from 'sequelize'
 import path from 'path'
-import config from '../config.json'
+import config from '../ ball.json'
+const botName = ' ball';
 
 (() => {
 
+var usersMove:string[] = []
+const canMoveArray = config[6].content as Array<string>
+const cantBeMovedArray = config[7].content as Array<string>
+
+
  interface ExtendedInteraction extends discord.CommandInteraction {
-    member: discord.GuildMember
+    member: discord.GuildMember;
 }
  interface RunOptions {
-    client: Bot
-    interaction: ExtendedInteraction
-    args: discord.CommandInteractionOptionResolver
+    client: Bot;
+    interaction: ExtendedInteraction;
+    args: discord.CommandInteractionOptionResolver;
 }
- type RunFunction = (options: RunOptions) => any
+ type RunFunction = (options: RunOptions) => any;
 
  type CommandType = {
-    userPermissions?: discord.PermissionResolvable[]
-    run: RunFunction
-} & discord.ChatInputApplicationCommandData
+    userPermissions?: discord.PermissionResolvable[];
+    run: RunFunction;
+} & discord.ChatInputApplicationCommandData;
  type RegisterCommandsOptionsType = {
     commands:discord.ApplicationCommandDataResolvable[]
 }
  interface ExtendedInteraction extends discord.CommandInteraction {
-    member: discord.GuildMember
+    member: discord.GuildMember;
 }
  interface RunOptions {
-    client: Bot
-    interaction: ExtendedInteraction
-    args: discord.CommandInteractionOptionResolver
+    client: Bot;
+    interaction: ExtendedInteraction;
+    args: discord.CommandInteractionOptionResolver;
 }
  type CustmIdFunctionOptions = {
-    client: Bot
-    interaction: discord.Interaction<any> 
+    client: Bot;
+    interaction: discord.Interaction<any> ;
 }
  type CustmIdFunction = (commandOptions: CustmIdFunctionOptions) => any
  type Custom_idType = {
@@ -49,10 +55,15 @@ import config from '../config.json'
  const sleep = async(dlay:number) => {
     await new Promise(r => setTimeout(() => r(true), dlay))
 }
+ const removeFromArray = <T>(arr:T[], itme:T) =>{
+    return arr.filter(theItme => {
+        return itme != theItme
+    })
+}
 
- const connection = new sequelize.Sequelize('bolabola', 'qwddwqdwq', 'qwdqwdqwdqwdqoihog', {
+ const connection = new sequelize.Sequelize('bolabola', 'qwddwqdwq', 'qwdqwdqwdqwdq;oihog', {
     dialect: 'sqlite',
-    storage: path.join(__dirname, `../data/coma.sqlite`)
+    storage: path.join(__dirname, `../data/${botName}.sqlite`)
 })
 
  const UsersTabe = connection.define('user', {
@@ -93,25 +104,30 @@ class Event<Key extends keyof discord.ClientEvents> {
 const functions = {
     events:[ new Event("interactionCreate", async (interaction) => {
     if (interaction.isCommand()) {
-        const command = client.commands.get(interaction.commandName)
+        const command = client.commands.get(interaction.commandName);
         if (!command)
-            return interaction.followUp("You have used a non existent command")
+            return interaction.followUp("You have used a non existent command");
 
         command.run({
             args: interaction.options as discord.CommandInteractionOptionResolver,
             client,
             interaction: interaction as ExtendedInteraction,
-        })
+        });
     }
 }), new Event("messageCreate", async (massge:discord.Message) => {
-    if(massge.content == 'lolo'){
+    const prefix = config[5].content as string
+    if(!massge.content.startsWith(prefix)){
+        return
+    }
+    const command = massge.content.split(prefix)[1]
+    if(command == 'lolo'){
         const row = new discord.ActionRowBuilder()
 			.addComponents(
 				new discord.ButtonBuilder()
 					.setCustomId('button2')
 					.setLabel('Click me!')
 					.setStyle(discord.ButtonStyle.Primary),
-			)
+			);
         
         if(config[3].content == true){
             row.addComponents(
@@ -119,14 +135,14 @@ const functions = {
                     .setCustomId('button3')
                     .setLabel('Click me!')
                     .setStyle(config[4].content as any),
-            )
+            );
         }
         massge.channel.send({
             content:'a yow',
             components: [row as any] 
         })
     }
-    if(massge.content == 'AllUsers'){
+    if(command == 'AllUsers'){
         var getUsers
         try{
             getUsers = await UsersTabe.findAll({})
@@ -143,7 +159,73 @@ const functions = {
 ${JSON.stringify(users)}
 `)
     }
-})],
+    if(command.startsWith('ball')){
+        
+        if(!canMoveArray.includes(massge.member!.user.id)){
+            return await massge.reply('sorry you cant move')
+        }
+        if(massge.mentions.users.size != 1){
+            return
+        }
+        const userId = massge.mentions.users.map(user => {
+            return user.id
+        })[0]
+        if(cantBeMovedArray.includes(userId)){
+            return massge.reply('sorry he is from the vip list')
+        }
+        const channels = massge.guild?.channels.cache.filter(channle => {
+            return channle.isVoiceBased()
+        })
+        const user = massge.guild?.members.cache.get(userId)?.user
+        if(usersMove.includes(userId)){
+            return massge.reply('he is olready moving')
+        }
+        usersMove.push(userId)
+        if(usersMove.includes(user!.id)){
+            try{
+                await massge.reply(`moving ${user!.username}`)
+                await massge.guild?.members.cache.get(userId)?.voice.setChannel(Array.from(channels!)[Array.from(channels!).length - 1][1] as discord.GuildVoiceChannelResolvable)
+            } catch(err){
+                await massge.reply('sorry')
+            }
+        }
+        for(let i = 0; i < Array.from(channels!).length; i++){
+            if(usersMove.includes(user!.id)){
+                const room = Array.from(channels!)[i][1]
+                try{
+                    await massge.guild?.members.cache.get(userId)?.voice.setChannel(room as discord.GuildVoiceChannelResolvable)
+
+                } catch(err){
+
+                }
+                if(i == Array.from(channels!).length - 1){
+                    i = -1
+                }
+            } else {
+                break;
+            }
+           
+        }
+    }
+    if(command.startsWith('stop')){
+        const msg = massge.content.split(' ')
+        if(msg[1] == 'ball'){
+            // if(massge.member?.user.id != '626434689762197538' && massge.member?.user.id != '797425316758159360' && massge.member?.user.id != '594157330451398658'){
+            //     return await massge.reply('you are not yofi')
+            // }
+            if(massge.mentions.users.size != 1){
+                return massge.reply('there is no mention')
+            }
+            const userId = massge.mentions.users.map(user => {
+                return user.id
+            })[0]
+            usersMove = removeFromArray<string>(usersMove, userId)
+            const user = massge.guild?.members.cache.get(userId)
+            await massge.reply(`stoped ${user?.user.username}`)
+        }
+    }
+})
+],
     custm_id:[ new Custom_id('button1', ({interaction, client}) => {
     if(!interaction.isButton()){
         return
@@ -214,10 +296,10 @@ ${JSON.stringify(users)}
     run: async({interaction, client}) =>{
         if (!interaction.isChatInputCommand()) {
             return
-        }
+        };
         const modal = new discord.ModalBuilder()
 			.setCustomId('insert_data')
-			.setTitle(config[1].content as string)
+			.setTitle(config[1].content as string);
 
 		// Add components to modal
 
@@ -225,19 +307,19 @@ ${JSON.stringify(users)}
 		const favoriteColorInput = new discord.TextInputBuilder()
 			.setCustomId('row1')
 			.setLabel("username")
-			.setStyle(discord.TextInputStyle.Short)
+			.setStyle(discord.TextInputStyle.Short);
 
 		const hobbiesInput = new discord.TextInputBuilder()
 			.setCustomId('row2')
 			.setLabel("email")
-			.setStyle(discord.TextInputStyle.Short)
-		const firstActionRow = new discord.ActionRowBuilder().addComponents(favoriteColorInput) as discord.ActionRowBuilder<discord.TextInputBuilder>
-		const secondActionRow = new discord.ActionRowBuilder().addComponents(hobbiesInput) as discord.ActionRowBuilder<discord.TextInputBuilder>
+			.setStyle(discord.TextInputStyle.Short);
+		const firstActionRow = new discord.ActionRowBuilder().addComponents(favoriteColorInput) as discord.ActionRowBuilder<discord.TextInputBuilder>;
+		const secondActionRow = new discord.ActionRowBuilder().addComponents(hobbiesInput) as discord.ActionRowBuilder<discord.TextInputBuilder>;
 
 		// Add inputs to the modal
-		modal.addComponents(firstActionRow, secondActionRow)
+		modal.addComponents(firstActionRow, secondActionRow);
 
-        await interaction.showModal(modal)
+        await interaction.showModal(modal);
     }
 }), new Command({
     name:'lolo',
@@ -250,7 +332,7 @@ ${JSON.stringify(users)}
 					.setCustomId('button1')
 					.setLabel('Click me!')
 					.setStyle(config[2].content ? config[2].content : 'Primary' as any),
-			)
+			);
         await sleep(3000)
         interaction.editReply({
             content:'click the button to complit the test',
@@ -270,7 +352,8 @@ class Bot  extends discord.Client{
     commands: discord.Collection<string, CommandType> = new discord.Collection();
     constructor(){
         super({
-            intents:  3276799 
+            intents:  3276799
+
         })
     }
 

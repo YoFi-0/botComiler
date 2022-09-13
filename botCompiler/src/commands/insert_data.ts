@@ -1,6 +1,5 @@
 import { Command } from "../handler/commands";
 import discord from 'discord.js'
-import { sleep } from "../functions";
 import config from '../config.json'
 export default new Command({
     name:'insert_data',

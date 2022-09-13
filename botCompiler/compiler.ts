@@ -5,17 +5,37 @@ const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 const readdir = promisify(fs.readdir);
 
+var glopalVariables = ''
+
+const getGlopalVariables = async(dirPath:string) => {
+    const dirs = await readdir(dirPath)
+    for(let i = 0; i < dirs.length; i = i + 1){
+        if(!dirs[i].endsWith('.ts')){
+            continue;
+        }
+        const finalObject = await readFile(path.join(dirPath, dirs[i]), 'utf-8')
+        finalObject.split('\n').forEach(line => {
+            if(line.startsWith('var ') || line.startsWith('const ') || line.startsWith('let ')){
+                glopalVariables += line + '\n'
+            }
+        })
+    }
+}
 const getFileOpject =async (dirPath:string) => {
     const isImportLine = (file:string[]) =>{
         const filnal:any[] = []
         for(let i = 0; i < file.length; i++){
             if(file[i].startsWith('import')){
-                continue
+                continue;
             }
-            filnal.push(file[i].replace(/export default/g, '').replace(/;/g, '').replace(/export/g, ''))
+            if(file[i].startsWith('var ') || file[i].startsWith('const ') || file[i].startsWith('let ')){
+                continue;
+            }
+            filnal.push(file[i].replace(/export default/g, '').replace(/export/g, ''))
         }
         return filnal.join('\n')
     }
+    getGlopalVariables(dirPath)
     const objects:any[] = []
     const dirs = await readdir(dirPath)
     for(let i = 0; i < dirs.length; i = i + 1){
@@ -45,7 +65,7 @@ const getTypes = async(dirPath:string) => {
             if(file[i].startsWith('import')){
                 continue
             }
-            filnal.push(file[i].replace(/export default/g, '').replace(/;/g, '').replace(/export/g, ''))
+            filnal.push(file[i].replace(/export default/g, '').replace(/export/g, ''))
         }
         return filnal.join('\n')
     }
@@ -78,11 +98,12 @@ const getTypes = async(dirPath:string) => {
     const connections = await getFileOpject(connectionsDir)
     const tables = await getFileOpject(tablsDir)
     const intents = (await readFile('./src/handler/intents.ts', 'utf-8')).replace('export default', '')
+    const botName = (await readFile('./src/handler/botName.ts', 'utf-8')).replace('export default', '').replace(/'/g, '')
     const configs:BotConfigType = JSON.parse((await readFile(configFilPath, 'utf-8')))
     var htmlFinal = ''
     configs.forEach(input => {
         if(input.inputType == 'textarea'){
-            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-from="${input.from}">
+            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-isMany="false" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
@@ -91,7 +112,7 @@ const getTypes = async(dirPath:string) => {
 </div>
 `
         } else if(input.inputType == 'select'){
-            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-from="${input.from}">
+            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-isMany="false" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
@@ -101,8 +122,20 @@ const getTypes = async(dirPath:string) => {
     }    </select>
 </div>
 `
+        } else if(input.content instanceof Array){
+            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-isMany="true" data-from="${input.from}">
+    <div data-input="many">
+        <div>
+            <span>${input.isrRequire ? 'require *' : 'optional'}</span>
+            <label>${input.inputTitle}</lable>
+        </div>
+        <input class="inputJson requireInput" type=${input.inputType} data-for="${input.inputTitle}">
+    </div>
+    <button>plus</button>
+</div>
+`
         } else {
-            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-from="${input.from}">
+            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-isMany="false" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
@@ -118,9 +151,12 @@ import discord from 'discord.js'
 import discordModals from "discord-modals";
 import  sequelize  from 'sequelize'
 import path from 'path'
-import config from '../config.json'
+import config from '../${botName}.json'
+const botName = '${botName}';
 
 (() => {
+
+${glopalVariables}
 
 ${types}
 
@@ -234,5 +270,5 @@ main()
 `
 await writeFile(path.join(__dirname, '../tester/final.ts'), outFile, 'utf-8')
 await writeFile(path.join(__dirname, '../tester/htmlContent.html'), htmlFinal, 'utf-8')
-await writeFile(path.join(__dirname, '../tester/config.json'), JSON.stringify(configs), 'utf-8')
+await writeFile(path.join(__dirname, `../tester/${botName}.json`), JSON.stringify(configs), 'utf-8')
 })()
