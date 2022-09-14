@@ -141,9 +141,33 @@
     {
         "index":14,
         "isrRequire":false,
-        "inputType":"tetx",
+        "inputType":"test",
         "content":"qwydg",
         "inputTitle":"lala",
         "from":13
+    },
+    {
+        "index":15,
+        "isrRequire":true,
+        "inputType":"textarea",
+        "content":"qwydg",
+        "inputTitle":"text area 1",
+        "from":0
+    },
+    {
+        "index":16,
+        "isrRequire":false,
+        "inputType":"textarea",
+        "content":"qwydg",
+        "inputTitle":"text area 2",
+        "from":0
+    },
+    {
+        "index":17,
+        "isrRequire":true,
+        "inputType":"textarea",
+        "content":"qwydg",
+        "inputTitle":"text area 3",
+        "from":16
     }
 ]
