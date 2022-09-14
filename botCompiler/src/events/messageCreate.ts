@@ -8,11 +8,15 @@ var usersMove:string[] = []
 const canMoveArray = config[6].content as Array<string>
 const cantBeMovedArray = config[7].content as Array<string>
 export default new Event("messageCreate", async (massge:discord.Message) => {
-    const prefix = config[5].content as string
+    const prefix = config[6].content as string
     if(!massge.content.startsWith(prefix)){
         return
     }
+
     const command = massge.content.split(prefix)[1]
+    if(command == 'say_hi' && config[2].content != null){
+        massge.reply(`${config[2].content}\n${config[3].content}` as string)
+    }
     if(command == 'lolo'){
         const row = new discord.ActionRowBuilder()
 			.addComponents(
@@ -22,12 +26,12 @@ export default new Event("messageCreate", async (massge:discord.Message) => {
 					.setStyle(discord.ButtonStyle.Primary),
 			);
         
-        if(config[3].content == true){
+        if(config[4].content == true){
             row.addComponents(
                 new discord.ButtonBuilder()
                     .setCustomId('button3')
                     .setLabel('Click me!')
-                    .setStyle(config[4].content as any),
+                    .setStyle(config[5].content as any),
             );
         }
         massge.channel.send({

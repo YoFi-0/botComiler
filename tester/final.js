@@ -7,7 +7,7 @@ const discord_js_1 = __importDefault(require("discord.js"));
 const discord_modals_1 = __importDefault(require("discord-modals"));
 const sequelize_1 = __importDefault(require("sequelize"));
 const path_1 = __importDefault(require("path"));
-const test_json_1 = __importDefault(require("../test.json"));
+const test_json_1 = __importDefault(require("./data/test.json"));
 const botName = 'test';
 process.on('uncaughtException', err => {
     console.log(err);
@@ -26,7 +26,7 @@ process.on('uncaughtException', err => {
     };
     const connection = new sequelize_1.default.Sequelize('bolabola', 'qwddwqdwq', 'qwdqwdqwdqwdq;oihog', {
         dialect: 'sqlite',
-        storage: path_1.default.join(__dirname, `../data/${botName}.sqlite`)
+        storage: path_1.default.join(__dirname, `data/${botName}.sqlite`)
     });
     const UsersTabe = connection.define('user', {
         username: {
@@ -70,22 +70,25 @@ process.on('uncaughtException', err => {
                     });
                 }
             }), new Event("messageCreate", async (massge) => {
-                const prefix = test_json_1.default[5].content;
+                const prefix = test_json_1.default[6].content;
                 if (!massge.content.startsWith(prefix)) {
                     return;
                 }
                 const command = massge.content.split(prefix)[1];
+                if (command == 'say_hi' && test_json_1.default[2].content != null) {
+                    massge.reply(`${test_json_1.default[2].content}\n${test_json_1.default[3].content}`);
+                }
                 if (command == 'lolo') {
                     const row = new discord_js_1.default.ActionRowBuilder()
                         .addComponents(new discord_js_1.default.ButtonBuilder()
                         .setCustomId('button2')
                         .setLabel('Click me!')
                         .setStyle(discord_js_1.default.ButtonStyle.Primary));
-                    if (test_json_1.default[3].content == true) {
+                    if (test_json_1.default[4].content == true) {
                         row.addComponents(new discord_js_1.default.ButtonBuilder()
                             .setCustomId('button3')
                             .setLabel('Click me!')
-                            .setStyle(test_json_1.default[4].content));
+                            .setStyle(test_json_1.default[5].content));
                     }
                     massge.channel.send({
                         content: 'a yow',
@@ -192,8 +195,8 @@ ${JSON.stringify(users)}
                     },
                 ],
                 run: async ({ interaction, client }) => {
-                    const blackListIds = test_json_1.default[6].content;
-                    const whiteListIds = test_json_1.default[7].content;
+                    const blackListIds = test_json_1.default[7].content;
+                    const whiteListIds = test_json_1.default[8].content;
                     const listType = interaction.options.get('list_type');
                     var finalAnsore = ``;
                     if (listType.value == 'waite') {
@@ -247,7 +250,7 @@ ${JSON.stringify(users)}
                         .addComponents(new discord_js_1.default.ButtonBuilder()
                         .setCustomId('button1')
                         .setLabel('Click me!')
-                        .setStyle(test_json_1.default[2].content ? test_json_1.default[2].content : 'Primary'));
+                        .setStyle(test_json_1.default[9].content ? test_json_1.default[9].content : 'Primary'));
                     await sleep(3000);
                     interaction.editReply({
                         content: 'click the button to complit the test',
@@ -289,9 +292,7 @@ ${JSON.stringify(users)}
             await this.login(test_json_1.default[0].content);
         }
         async addCommands({ commands }) {
-            for (let i = 0; i < commands.length; i++) {
-                await this.application.commands.create(commands[i]);
-            }
+            await this.application.commands.set(commands);
             console.log('command added');
         }
         async injectEveryThing() {

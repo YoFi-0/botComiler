@@ -61,9 +61,7 @@ export class Bot  extends discord.Client{
     }
 
     async addCommands({commands}:RegisterCommandsOptionsType){
-        for(let i = 0; i < commands.length; i++){
-            await this.application!.commands.create(commands[i])
-        }
+        await this.application!.commands.set(commands)
         console.log('command adedd')
     }
 

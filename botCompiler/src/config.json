@@ -19,7 +19,7 @@
         "index":2,
         "isrRequire":false,
         "inputType":"text",
-        "content":"some info from you",
+        "content":"this is the hi msg",
         "inputTitle":"hi msg",
         "from":0
     },
@@ -27,12 +27,20 @@
         "index":3,
         "isrRequire":true,
         "inputType":"text",
-        "content":"some info from you",
+        "content":"this is for yofi",
         "inputTitle":"inclode the name",
         "from":2
     },
     {
         "index":4,
+        "isrRequire":false,
+        "inputType":"checkbox",
+        "content":true,
+        "inputTitle":"more button msg",
+        "from":0
+    },
+    {
+        "index":5,
         "isrRequire":false,
         "inputType":"select",
         "options":[
@@ -42,42 +50,11 @@
             "Danger"
         ],
         "content":"Danger",
-        "inputTitle":"buttons color",
-        "from":0
-    },
-    {
-        "index":5,
-        "isrRequire":false,
-        "inputType":"checkbox",
-        "content":true,
-        "inputTitle":"more button",
-        "from":0
+        "inputTitle":"buttons color msg",
+        "from":4
     },
     {
         "index":6,
-        "isrRequire":true,
-        "inputType":"select",
-        "options":[
-            "Primary",
-            "Secondary",
-            "Success",
-            "Danger",
-            ""
-        ],
-        "content":"Success",
-        "inputTitle":"more button Color",
-        "from":5
-    },
-    {
-        "index":7,
-        "isrRequire":true,
-        "inputType":"text",
-        "content":"",
-        "inputTitle":"button name",
-        "from":5
-    },
-    {
-        "index":8,
         "isrRequire":true,
         "inputType":"text",
         "content":"+",
@@ -85,7 +62,7 @@
         "from":0
     },
     {
-        "index":9,
+        "index":7,
         "isrRequire":true,
         "inputType":"text",
         "content":[
@@ -98,7 +75,7 @@
         "from":0
     },
     {
-        "index":10,
+        "index":8,
         "isrRequire":true,
         "inputType":"text",
         "content":[
@@ -110,64 +87,17 @@
         "from":0
     },
     {
-        "index":11,
-        "isrRequire":false,
-        "inputType":"checkbox",
-        "content":true,
-        "inputTitle":"add yofi msg",
-        "from":0
-    },
-    {
-        "index":12,
+        "index":9,
         "isrRequire":true,
-        "inputType":"text",
-        "content":"lala",
-        "inputTitle":"yofi msg",
-        "from":11
-    },
-    {
-        "index":13,
-        "isrRequire":false,
         "inputType":"select",
-        "content":"java",
-        "options": [
-            "java",
-            "c#",
-            ""
+        "options":[
+            "Primary",
+            "Secondary",
+            "Success",
+            "Danger"
         ],
-        "inputTitle":"add button with name",
+        "content":"Danger",
+        "inputTitle":"white list ids",
         "from":0
-    },
-    {
-        "index":14,
-        "isrRequire":false,
-        "inputType":"test",
-        "content":"qwydg",
-        "inputTitle":"lala",
-        "from":13
-    },
-    {
-        "index":15,
-        "isrRequire":true,
-        "inputType":"textarea",
-        "content":"qwydg",
-        "inputTitle":"text area 1",
-        "from":0
-    },
-    {
-        "index":16,
-        "isrRequire":false,
-        "inputType":"textarea",
-        "content":"qwydg",
-        "inputTitle":"text area 2",
-        "from":0
-    },
-    {
-        "index":17,
-        "isrRequire":true,
-        "inputType":"textarea",
-        "content":"qwydg",
-        "inputTitle":"text area 3",
-        "from":16
     }
 ]

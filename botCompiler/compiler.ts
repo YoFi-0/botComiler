@@ -152,7 +152,7 @@ import discord from 'discord.js'
 import discordModals from "discord-modals";
 import  sequelize  from 'sequelize'
 import path from 'path'
-import config from '../${botName}.json'
+import config from './data/${botName}.json'
 const botName = '${botName}';
 
 process.on('uncaughtException', err => {
@@ -229,9 +229,7 @@ class Bot  extends discord.Client{
 
 
     async addCommands({commands}:RegisterCommandsOptionsType){
-        for(let i = 0; i < commands.length; i++){
-            await this.application!.commands.create(commands[i])
-        }
+        await this.application!.commands.set(commands)
         console.log('command added')
     }
 
@@ -278,5 +276,5 @@ main()
 `
 await writeFile(path.join(__dirname, '../tester/final.ts'), outFile, 'utf-8')
 await writeFile(path.join(__dirname, '../tester/htmlContent.html'), htmlFinal, 'utf-8')
-await writeFile(path.join(__dirname, `../tester/${botName}.json`), JSON.stringify(configs), 'utf-8')
+await writeFile(path.join(__dirname, `../tester/t/data/${botName}.json`), JSON.stringify(configs), 'utf-8')
 })()

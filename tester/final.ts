@@ -3,7 +3,7 @@ import discord from 'discord.js'
 import discordModals from "discord-modals";
 import  sequelize  from 'sequelize'
 import path from 'path'
-import config from '../test.json'
+import config from './data/test.json'
 const botName = 'test';
 
 process.on('uncaughtException', err => {
@@ -68,7 +68,7 @@ const cantBeMovedArray = config[7].content as Array<string>
 
  const connection = new sequelize.Sequelize('bolabola', 'qwddwqdwq', 'qwdqwdqwdqwdq;oihog', {
     dialect: 'sqlite',
-    storage: path.join(__dirname, `../data/${botName}.sqlite`)
+    storage: path.join(__dirname, `data/${botName}.sqlite`)
 })
 
  const UsersTabe = connection.define('user', {
@@ -120,11 +120,15 @@ const functions = {
         });
     }
 }), new Event("messageCreate", async (massge:discord.Message) => {
-    const prefix = config[5].content as string
+    const prefix = config[6].content as string
     if(!massge.content.startsWith(prefix)){
         return
     }
+
     const command = massge.content.split(prefix)[1]
+    if(command == 'say_hi' && config[2].content != null){
+        massge.reply(`${config[2].content}\n${config[3].content}` as string)
+    }
     if(command == 'lolo'){
         const row = new discord.ActionRowBuilder()
 			.addComponents(
@@ -134,12 +138,12 @@ const functions = {
 					.setStyle(discord.ButtonStyle.Primary),
 			);
         
-        if(config[3].content == true){
+        if(config[4].content == true){
             row.addComponents(
                 new discord.ButtonBuilder()
                     .setCustomId('button3')
                     .setLabel('Click me!')
-                    .setStyle(config[4].content as any),
+                    .setStyle(config[5].content as any),
             );
         }
         massge.channel.send({
@@ -247,8 +251,8 @@ ${JSON.stringify(users)}
         },
     ],
     run: async({interaction, client}) => {
-        const blackListIds = config[6].content as string[]
-        const whiteListIds = config[7].content as string[]
+        const blackListIds = config[7].content as string[]
+        const whiteListIds = config[8].content as string[]
         const listType = interaction.options.get('list_type')
         var finalAnsore = ``
         if(listType!.value == 'waite'){
@@ -307,7 +311,7 @@ ${JSON.stringify(users)}
 				new discord.ButtonBuilder()
 					.setCustomId('button1')
 					.setLabel('Click me!')
-					.setStyle(config[2].content ? config[2].content : 'Primary' as any),
+					.setStyle(config[9].content ? config[9].content : 'Primary' as any),
 			);
         await sleep(3000)
         interaction.editReply({
@@ -354,9 +358,7 @@ class Bot  extends discord.Client{
 
 
     async addCommands({commands}:RegisterCommandsOptionsType){
-        for(let i = 0; i < commands.length; i++){
-            await this.application!.commands.create(commands[i])
-        }
+        await this.application!.commands.set(commands)
         console.log('command added')
     }
 

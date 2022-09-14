@@ -12,7 +12,7 @@ export default new Command({
 				new discord.ButtonBuilder()
 					.setCustomId('button1')
 					.setLabel('Click me!')
-					.setStyle(config[2].content ? config[2].content : 'Primary' as any),
+					.setStyle(config[9].content ? config[9].content : 'Primary' as any),
 			);
         await sleep(3000)
         interaction.editReply({

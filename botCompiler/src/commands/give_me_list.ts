@@ -17,8 +17,8 @@ export default new Command({
         },
     ],
     run: async({interaction, client}) => {
-        const blackListIds = config[6].content as string[]
-        const whiteListIds = config[7].content as string[]
+        const blackListIds = config[7].content as string[]
+        const whiteListIds = config[8].content as string[]
         const listType = interaction.options.get('list_type')
         var finalAnsore = ``
         if(listType!.value == 'waite'){
