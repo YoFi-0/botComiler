@@ -3,6 +3,9 @@ export default new Command({
     name:'ww',
     description: 'this is a new command',
     run: async({interaction, client}) =>{
-        await interaction.reply('test complited!')
+        await interaction.reply({
+            content:'test complited!',
+            ephemeral:true
+        })
     }
 })

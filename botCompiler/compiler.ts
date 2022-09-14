@@ -98,7 +98,7 @@ const getTypes = async(dirPath:string) => {
     const connections = await getFileOpject(connectionsDir)
     const tables = await getFileOpject(tablsDir)
     const intents = (await readFile('./src/handler/intents.ts', 'utf-8')).replace('export default', '')
-    const botName = (await readFile('./src/handler/botName.ts', 'utf-8')).replace('export default', '').replace(/'/g, '')
+    const botName = (await readFile('./src/handler/botName.ts', 'utf-8')).replace('export default', '').replace(/'/g, '').replace(' ', '')
     const configs:BotConfigType = JSON.parse((await readFile(configFilPath, 'utf-8')))
     var htmlFinal = ''
     configs.forEach(input => {
@@ -132,6 +132,7 @@ const getTypes = async(dirPath:string) => {
         <input class="inputJson requireInput" type=${input.inputType} data-for="${input.inputTitle}">
     </div>
     <button>plus</button>
+    <button>hide</button>
 </div>
 `
         } else {
@@ -153,6 +154,11 @@ import  sequelize  from 'sequelize'
 import path from 'path'
 import config from '../${botName}.json'
 const botName = '${botName}';
+
+process.on('uncaughtException', err => {
+    console.log(err)
+});
+
 
 (() => {
 
@@ -223,8 +229,10 @@ class Bot  extends discord.Client{
 
 
     async addCommands({commands}:RegisterCommandsOptionsType){
-        this.application?.commands.set(commands);
-        console.log('commands added')
+        for(let i = 0; i < commands.length; i++){
+            await this.application!.commands.create(commands[i])
+        }
+        console.log('command added')
     }
 
     async injectEveryThing(){

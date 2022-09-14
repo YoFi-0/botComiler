@@ -7,12 +7,15 @@ const discord_js_1 = __importDefault(require("discord.js"));
 const discord_modals_1 = __importDefault(require("discord-modals"));
 const sequelize_1 = __importDefault(require("sequelize"));
 const path_1 = __importDefault(require("path"));
-const _ball_json_1 = __importDefault(require("../ ball.json"));
-const botName = ' ball';
+const test_json_1 = __importDefault(require("../test.json"));
+const botName = 'test';
+process.on('uncaughtException', err => {
+    console.log(err);
+});
 (() => {
     var usersMove = [];
-    const canMoveArray = _ball_json_1.default[6].content;
-    const cantBeMovedArray = _ball_json_1.default[7].content;
+    const canMoveArray = test_json_1.default[6].content;
+    const cantBeMovedArray = test_json_1.default[7].content;
     const sleep = async (dlay) => {
         await new Promise(r => setTimeout(() => r(true), dlay));
     };
@@ -67,7 +70,7 @@ const botName = ' ball';
                     });
                 }
             }), new Event("messageCreate", async (massge) => {
-                const prefix = _ball_json_1.default[5].content;
+                const prefix = test_json_1.default[5].content;
                 if (!massge.content.startsWith(prefix)) {
                     return;
                 }
@@ -78,11 +81,11 @@ const botName = ' ball';
                         .setCustomId('button2')
                         .setLabel('Click me!')
                         .setStyle(discord_js_1.default.ButtonStyle.Primary));
-                    if (_ball_json_1.default[3].content == true) {
+                    if (test_json_1.default[3].content == true) {
                         row.addComponents(new discord_js_1.default.ButtonBuilder()
                             .setCustomId('button3')
                             .setLabel('Click me!')
-                            .setStyle(_ball_json_1.default[4].content));
+                            .setStyle(test_json_1.default[4].content));
                     }
                     massge.channel.send({
                         content: 'a yow',
@@ -106,70 +109,6 @@ const botName = ' ball';
                     massge.reply(`test completed
 ${JSON.stringify(users)}
 `);
-                }
-                if (command.startsWith('ball')) {
-                    if (!canMoveArray.includes(massge.member.user.id)) {
-                        return await massge.reply('sorry you cant move');
-                    }
-                    if (massge.mentions.users.size != 1) {
-                        return;
-                    }
-                    const userId = massge.mentions.users.map(user => {
-                        return user.id;
-                    })[0];
-                    if (cantBeMovedArray.includes(userId)) {
-                        return massge.reply('sorry he is from the vip list');
-                    }
-                    const channels = massge.guild?.channels.cache.filter(channle => {
-                        return channle.isVoiceBased();
-                    });
-                    const user = massge.guild?.members.cache.get(userId)?.user;
-                    if (usersMove.includes(userId)) {
-                        return massge.reply('he is olready moving');
-                    }
-                    usersMove.push(userId);
-                    if (usersMove.includes(user.id)) {
-                        try {
-                            await massge.reply(`moving ${user.username}`);
-                            await massge.guild?.members.cache.get(userId)?.voice.setChannel(Array.from(channels)[Array.from(channels).length - 1][1]);
-                        }
-                        catch (err) {
-                            await massge.reply('sorry');
-                        }
-                    }
-                    for (let i = 0; i < Array.from(channels).length; i++) {
-                        if (usersMove.includes(user.id)) {
-                            const room = Array.from(channels)[i][1];
-                            try {
-                                await massge.guild?.members.cache.get(userId)?.voice.setChannel(room);
-                            }
-                            catch (err) {
-                            }
-                            if (i == Array.from(channels).length - 1) {
-                                i = -1;
-                            }
-                        }
-                        else {
-                            break;
-                        }
-                    }
-                }
-                if (command.startsWith('stop')) {
-                    const msg = massge.content.split(' ');
-                    if (msg[1] == 'ball') {
-                        // if(massge.member?.user.id != '626434689762197538' && massge.member?.user.id != '797425316758159360' && massge.member?.user.id != '594157330451398658'){
-                        //     return await massge.reply('you are not yofi')
-                        // }
-                        if (massge.mentions.users.size != 1) {
-                            return massge.reply('there is no mention');
-                        }
-                        const userId = massge.mentions.users.map(user => {
-                            return user.id;
-                        })[0];
-                        usersMove = removeFromArray(usersMove, userId);
-                        const user = massge.guild?.members.cache.get(userId);
-                        await massge.reply(`stoped ${user?.user.username}`);
-                    }
                 }
             })
         ],
@@ -238,6 +177,41 @@ ${JSON.stringify(users)}
                 return;
             })],
         commands: [new Command({
+                name: 'give_me_list',
+                description: 'just for test',
+                options: [
+                    {
+                        name: "list_type",
+                        type: 3,
+                        description: "in this field you will enter how many bot coins you will give each user that will join your server",
+                        required: true,
+                        choices: [
+                            { name: 'waiteList', value: "waite" },
+                            { name: 'blackList', value: "black" }
+                        ],
+                    },
+                ],
+                run: async ({ interaction, client }) => {
+                    const blackListIds = test_json_1.default[6].content;
+                    const whiteListIds = test_json_1.default[7].content;
+                    const listType = interaction.options.get('list_type');
+                    var finalAnsore = ``;
+                    if (listType.value == 'waite') {
+                        finalAnsore += 'the Black list users\n';
+                        whiteListIds.forEach(id => {
+                            finalAnsore += `    <@${id}> \n`;
+                        });
+                    }
+                    if (listType.value == 'black') {
+                        finalAnsore += 'the waite list users\n';
+                        blackListIds.forEach(id => {
+                            finalAnsore += `    <@${id}> \n`;
+                        });
+                    }
+                    finalAnsore += 'test completed';
+                    interaction.reply(finalAnsore);
+                }
+            }), new Command({
                 name: 'insert_data',
                 description: 'this is a new command',
                 run: async ({ interaction, client }) => {
@@ -247,7 +221,7 @@ ${JSON.stringify(users)}
                     ;
                     const modal = new discord_js_1.default.ModalBuilder()
                         .setCustomId('insert_data')
-                        .setTitle(_ball_json_1.default[1].content);
+                        .setTitle(test_json_1.default[1].content);
                     // Add components to modal
                     // Create the text input components
                     const favoriteColorInput = new discord_js_1.default.TextInputBuilder()
@@ -273,7 +247,7 @@ ${JSON.stringify(users)}
                         .addComponents(new discord_js_1.default.ButtonBuilder()
                         .setCustomId('button1')
                         .setLabel('Click me!')
-                        .setStyle(_ball_json_1.default[2].content ? _ball_json_1.default[2].content : 'Primary'));
+                        .setStyle(test_json_1.default[2].content ? test_json_1.default[2].content : 'Primary'));
                     await sleep(3000);
                     interaction.editReply({
                         content: 'click the button to complit the test',
@@ -284,7 +258,10 @@ ${JSON.stringify(users)}
                 name: 'ww',
                 description: 'this is a new command',
                 run: async ({ interaction, client }) => {
-                    await interaction.reply('test complited!');
+                    await interaction.reply({
+                        content: 'test complited!',
+                        ephemeral: true
+                    });
                 }
             })],
     };
@@ -309,11 +286,13 @@ ${JSON.stringify(users)}
             }
             (0, discord_modals_1.default)(this);
             await this.injectEveryThing();
-            await this.login(_ball_json_1.default[0].content);
+            await this.login(test_json_1.default[0].content);
         }
         async addCommands({ commands }) {
-            this.application?.commands.set(commands);
-            console.log('commands added');
+            for (let i = 0; i < commands.length; i++) {
+                await this.application.commands.create(commands[i]);
+            }
+            console.log('command added');
         }
         async injectEveryThing() {
             const slashCommands = [];

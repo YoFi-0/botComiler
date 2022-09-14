@@ -3,8 +3,13 @@ import discord from 'discord.js'
 import discordModals from "discord-modals";
 import  sequelize  from 'sequelize'
 import path from 'path'
-import config from '../ ball.json'
-const botName = ' ball';
+import config from '../test.json'
+const botName = 'test';
+
+process.on('uncaughtException', err => {
+    console.log(err)
+});
+
 
 (() => {
 
@@ -159,71 +164,6 @@ const functions = {
 ${JSON.stringify(users)}
 `)
     }
-    if(command.startsWith('ball')){
-        
-        if(!canMoveArray.includes(massge.member!.user.id)){
-            return await massge.reply('sorry you cant move')
-        }
-        if(massge.mentions.users.size != 1){
-            return
-        }
-        const userId = massge.mentions.users.map(user => {
-            return user.id
-        })[0]
-        if(cantBeMovedArray.includes(userId)){
-            return massge.reply('sorry he is from the vip list')
-        }
-        const channels = massge.guild?.channels.cache.filter(channle => {
-            return channle.isVoiceBased()
-        })
-        const user = massge.guild?.members.cache.get(userId)?.user
-        if(usersMove.includes(userId)){
-            return massge.reply('he is olready moving')
-        }
-        usersMove.push(userId)
-        if(usersMove.includes(user!.id)){
-            try{
-                await massge.reply(`moving ${user!.username}`)
-                await massge.guild?.members.cache.get(userId)?.voice.setChannel(Array.from(channels!)[Array.from(channels!).length - 1][1] as discord.GuildVoiceChannelResolvable)
-            } catch(err){
-                await massge.reply('sorry')
-            }
-        }
-        for(let i = 0; i < Array.from(channels!).length; i++){
-            if(usersMove.includes(user!.id)){
-                const room = Array.from(channels!)[i][1]
-                try{
-                    await massge.guild?.members.cache.get(userId)?.voice.setChannel(room as discord.GuildVoiceChannelResolvable)
-
-                } catch(err){
-
-                }
-                if(i == Array.from(channels!).length - 1){
-                    i = -1
-                }
-            } else {
-                break;
-            }
-           
-        }
-    }
-    if(command.startsWith('stop')){
-        const msg = massge.content.split(' ')
-        if(msg[1] == 'ball'){
-            // if(massge.member?.user.id != '626434689762197538' && massge.member?.user.id != '797425316758159360' && massge.member?.user.id != '594157330451398658'){
-            //     return await massge.reply('you are not yofi')
-            // }
-            if(massge.mentions.users.size != 1){
-                return massge.reply('there is no mention')
-            }
-            const userId = massge.mentions.users.map(user => {
-                return user.id
-            })[0]
-            usersMove = removeFromArray<string>(usersMove, userId)
-            const user = massge.guild?.members.cache.get(userId)
-            await massge.reply(`stoped ${user?.user.username}`)
-        }
-    }
 })
 ],
     custm_id:[ new Custom_id('button1', ({interaction, client}) => {
@@ -291,6 +231,42 @@ ${JSON.stringify(users)}
     return
 })],
     commands:[ new Command({
+    name:'give_me_list',
+    description:'just for test',
+    options:[
+        {
+            name: "list_type",
+            type: 3,
+            description:
+                "in this field you will enter how many bot coins you will give each user that will join your server",
+            required: true,
+            choices:[
+                {name:'waiteList', value:"waite"},
+                {name:'blackList', value:"black"}
+            ],
+        },
+    ],
+    run: async({interaction, client}) => {
+        const blackListIds = config[6].content as string[]
+        const whiteListIds = config[7].content as string[]
+        const listType = interaction.options.get('list_type')
+        var finalAnsore = ``
+        if(listType!.value == 'waite'){
+            finalAnsore += 'the Black list users\n'
+            whiteListIds.forEach(id => {
+                finalAnsore += `    <@${id}> \n`
+            })
+        }
+        if(listType!.value == 'black'){
+            finalAnsore += 'the waite list users\n'
+            blackListIds.forEach(id => {
+                finalAnsore += `    <@${id}> \n`
+            })
+        }
+        finalAnsore += 'test completed'
+        interaction.reply(finalAnsore)
+    }
+}), new Command({
     name:'insert_data',
     description: 'this is a new command',
     run: async({interaction, client}) =>{
@@ -343,7 +319,10 @@ ${JSON.stringify(users)}
     name:'ww',
     description: 'this is a new command',
     run: async({interaction, client}) =>{
-        await interaction.reply('test complited!')
+        await interaction.reply({
+            content:'test complited!',
+            ephemeral:true
+        })
     }
 })],
 }
@@ -375,8 +354,10 @@ class Bot  extends discord.Client{
 
 
     async addCommands({commands}:RegisterCommandsOptionsType){
-        this.application?.commands.set(commands);
-        console.log('commands added')
+        for(let i = 0; i < commands.length; i++){
+            await this.application!.commands.create(commands[i])
+        }
+        console.log('command added')
     }
 
     async injectEveryThing(){

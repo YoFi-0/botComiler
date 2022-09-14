@@ -12,6 +12,7 @@ import fs from 'fs'
 import path from 'path'
 import { CommandType, CustmIdFunctionOptions, Custom_idType, RegisterCommandsOptionsType, RunOptions } from "../types";
 import { UsersTabe } from '../tables';
+import { sleep } from '../functions';
 //out script [in lansher]
 
 const readdir = promisify(fs.readdir)
@@ -60,8 +61,10 @@ export class Bot  extends discord.Client{
     }
 
     async addCommands({commands}:RegisterCommandsOptionsType){
-        this.application?.commands.set(commands);
-        console.log('commands added')
+        for(let i = 0; i < commands.length; i++){
+            await this.application!.commands.create(commands[i])
+        }
+        console.log('command adedd')
     }
 
     async injectEveryThing(){

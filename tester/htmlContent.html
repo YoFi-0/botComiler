@@ -15,6 +15,20 @@
 <div class="inputJsonFather" data-index="2" data-isMany="false" data-from="0">
     <div>
         <span>optional</span>
+        <label>hi msg</lable>
+    </div>
+    <input class="inputJson optionalInput" type=text data-for="hi msg">
+</div>
+<div class="inputJsonFather" data-index="3" data-isMany="false" data-from="2">
+    <div>
+        <span>require *</span>
+        <label>inclode the name</lable>
+    </div>
+    <input class="inputJson requireInput" type=text data-for="inclode the name">
+</div>
+<div class="inputJsonFather" data-index="4" data-isMany="false" data-from="0">
+    <div>
+        <span>optional</span>
         <label>buttons color</lable>
     </div>
     <select class="inputJson optionalInput" data-for="buttons color">
@@ -24,14 +38,14 @@
       <option value="Danger">Danger</option>
     </select>
 </div>
-<div class="inputJsonFather" data-index="3" data-isMany="false" data-from="0">
+<div class="inputJsonFather" data-index="5" data-isMany="false" data-from="0">
     <div>
         <span>optional</span>
         <label>more button</lable>
     </div>
     <input class="inputJson optionalInput" type=checkbox data-for="more button">
 </div>
-<div class="inputJsonFather" data-index="4" data-isMany="false" data-from="3">
+<div class="inputJsonFather" data-index="6" data-isMany="false" data-from="5">
     <div>
         <span>require *</span>
         <label>more button Color</lable>
@@ -41,32 +55,74 @@
       <option value="Secondary">Secondary</option>
       <option value="Success">Success</option>
       <option value="Danger">Danger</option>
+      <option value=""></option>
     </select>
 </div>
-<div class="inputJsonFather" data-index="5" data-isMany="false" data-from="0">
+<div class="inputJsonFather" data-index="7" data-isMany="false" data-from="5">
+    <div>
+        <span>require *</span>
+        <label>button name</lable>
+    </div>
+    <input class="inputJson requireInput" type=text data-for="button name">
+</div>
+<div class="inputJsonFather" data-index="8" data-isMany="false" data-from="0">
     <div>
         <span>require *</span>
         <label>prefix</lable>
     </div>
     <input class="inputJson requireInput" type=text data-for="prefix">
 </div>
-<div class="inputJsonFather" data-index="6" data-isMany="true" data-from="0">
+<div class="inputJsonFather" data-index="9" data-isMany="true" data-from="0">
     <div data-input="many">
         <div>
             <span>require *</span>
-            <label>can move the users ids</lable>
+            <label>black list ids</lable>
         </div>
-        <input class="inputJson requireInput" type=text data-for="can move the users ids">
+        <input class="inputJson requireInput" type=text data-for="black list ids">
     </div>
     <button>plus</button>
+    <button>hide</button>
 </div>
-<div class="inputJsonFather" data-index="7" data-isMany="true" data-from="0">
+<div class="inputJsonFather" data-index="10" data-isMany="true" data-from="0">
     <div data-input="many">
         <div>
             <span>require *</span>
-            <label>cant be moved ids</lable>
+            <label>white list ids</lable>
         </div>
-        <input class="inputJson requireInput" type=text data-for="cant be moved ids">
+        <input class="inputJson requireInput" type=text data-for="white list ids">
     </div>
     <button>plus</button>
+    <button>hide</button>
+</div>
+<div class="inputJsonFather" data-index="11" data-isMany="false" data-from="0">
+    <div>
+        <span>optional</span>
+        <label>add yofi msg</lable>
+    </div>
+    <input class="inputJson optionalInput" type=checkbox data-for="add yofi msg">
+</div>
+<div class="inputJsonFather" data-index="12" data-isMany="false" data-from="11">
+    <div>
+        <span>require *</span>
+        <label>yofi msg</lable>
+    </div>
+    <input class="inputJson requireInput" type=text data-for="yofi msg">
+</div>
+<div class="inputJsonFather" data-index="13" data-isMany="false" data-from="0">
+    <div>
+        <span>optional</span>
+        <label>add button with name</lable>
+    </div>
+    <select class="inputJson optionalInput" data-for="add button with name">
+      <option value="java">java</option>
+      <option value="c#">c#</option>
+      <option value=""></option>
+    </select>
+</div>
+<div class="inputJsonFather" data-index="14" data-isMany="false" data-from="13">
+    <div>
+        <span>optional</span>
+        <label>lala</lable>
+    </div>
+    <input class="inputJson optionalInput" type=tetx data-for="lala">
 </div>
