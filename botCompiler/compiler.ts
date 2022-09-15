@@ -103,7 +103,7 @@ const getTypes = async(dirPath:string) => {
     var htmlFinal = ''
     configs.forEach(input => {
         if(input.inputType == 'textarea'){
-            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-isMany="false" data-from="${input.from}">
+            htmlFinal += `<div class="inputJsonFather ${input.inputType}" data-index="${input.index}" data-isMany="false" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
@@ -112,7 +112,7 @@ const getTypes = async(dirPath:string) => {
 </div>
 `
         } else if(input.inputType == 'select'){
-            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-isMany="false" data-from="${input.from}">
+            htmlFinal += `<div class="inputJsonFather ${input.inputType}" data-index="${input.index}" data-isMany="false" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
@@ -123,7 +123,7 @@ const getTypes = async(dirPath:string) => {
 </div>
 `
         } else if(input.content instanceof Array){
-            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-isMany="true" data-from="${input.from}">
+            htmlFinal += `<div class="inputJsonFather ${input.inputType}" data-index="${input.index}" data-isMany="true" data-from="${input.from}">
     <div data-input="many">
         <div>
             <span>${input.isrRequire ? 'require *' : 'optional'}</span>
@@ -131,12 +131,12 @@ const getTypes = async(dirPath:string) => {
         </div>
         <input class="inputJson requireInput" type=${input.inputType} data-for="${input.inputTitle}">
     </div>
-    <button>plus</button>
-    <button>hide</button>
+    <button class="plus"><i class="fas fa-plus"></i></button>
+    <button class="noPlus"><i class="fas fa-minus"></i></button>
 </div>
 `
         } else {
-            htmlFinal += `<div class="inputJsonFather" data-index="${input.index}" data-isMany="false" data-from="${input.from}">
+            htmlFinal += `<div class="inputJsonFather ${input.inputType}" data-index="${input.index}" data-isMany="false" data-from="${input.from}">
     <div>
         <span>${input.isrRequire ? 'require *' : 'optional'}</span>
         <label>${input.inputTitle}</lable>
