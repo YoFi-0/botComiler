@@ -192,6 +192,11 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
+bytenode@^1.3.6:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/bytenode/-/bytenode-1.3.6.tgz#7195a78c5d98b8f50a640d10f9762e733213deea"
+  integrity sha512-t/e1psHP/r9ipj136i9FUOznv/9el1DcY7mB8nBM1FPDqYTvQY73J8uVwRPciWdKZzZrS5yxEyzNEEnB835Fyg==
+
 cacache@^15.2.0:
   version "15.3.0"
   resolved "https://registry.yarnpkg.com/cacache/-/cacache-15.3.0.tgz#dc85380fb2f556fe3dda4c719bfa0ec875a7f1eb"

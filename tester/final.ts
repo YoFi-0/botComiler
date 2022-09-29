@@ -11,7 +11,7 @@ process.on('uncaughtException', err => {
 });
 
 
-(() => {
+(async() => {
 
 var usersMove:string[] = []
 const canMoveArray = config[6].content as Array<string>
@@ -397,8 +397,12 @@ const client = new Bot()
 
 const main = async() => {
     await client.start()
+    if("--duygowudqywdiqwh--"){
+        client.destroy()
+    }
     console.log('bot started')
 }
-main()
+await main()
+return client
 
 })()

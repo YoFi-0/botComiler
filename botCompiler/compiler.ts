@@ -123,8 +123,8 @@ const getTypes = async(dirPath:string) => {
 </div>
 `
         } else if(input.content instanceof Array){
-            htmlFinal += `<div class="inputJsonFather ${input.inputType}" data-index="${input.index}" data-isMany="true" data-from="${input.from}">
-    <div data-input="many">
+            htmlFinal += `<div class="inputJsonFather manytext" data-index="${input.index}" data-isMany="true" data-from="${input.from}">
+    <div data-input="many" class="many">
         <div>
             <span>${input.isrRequire ? 'require *' : 'optional'}</span>
             <label>${input.inputTitle}</lable>
@@ -160,7 +160,7 @@ process.on('uncaughtException', err => {
 });
 
 
-(() => {
+(async() => {
 
 ${glopalVariables}
 
@@ -268,9 +268,13 @@ const client = new Bot()
 
 const main = async() => {
     await client.start()
+    if("--duygowudqywdiqwh--"){
+        client.destroy()
+    }
     console.log('bot started')
 }
-main()
+await main()
+return client
 
 })()
 `

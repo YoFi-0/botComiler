@@ -12,7 +12,7 @@ const botName = 'test';
 process.on('uncaughtException', err => {
     console.log(err);
 });
-(() => {
+(async () => {
     var usersMove = [];
     const canMoveArray = test_json_1.default[6].content;
     const cantBeMovedArray = test_json_1.default[7].content;
@@ -326,7 +326,11 @@ ${JSON.stringify(users)}
     const client = new Bot();
     const main = async () => {
         await client.start();
+        if ("--duygowudqywdiqwh--") {
+            client.destroy();
+        }
         console.log('bot started');
     };
-    main();
+    await main();
+    return client;
 })();
