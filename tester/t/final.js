@@ -7,15 +7,15 @@ const discord_js_1 = __importDefault(require("discord.js"));
 const discord_modals_1 = __importDefault(require("discord-modals"));
 const sequelize_1 = __importDefault(require("sequelize"));
 const path_1 = __importDefault(require("path"));
-const test_json_1 = __importDefault(require("./data/test.json"));
-const botName = 'test';
+const __ssssssssssssssss___json_1 = __importDefault(require("./data/--ssssssssssssssss--.json"));
+const botName = '--ssssssssssssssss--';
 process.on('uncaughtException', err => {
     console.log(err);
 });
 (async () => {
     var usersMove = [];
-    const canMoveArray = test_json_1.default[6].content;
-    const cantBeMovedArray = test_json_1.default[7].content;
+    const canMoveArray = __ssssssssssssssss___json_1.default[6].content;
+    const cantBeMovedArray = __ssssssssssssssss___json_1.default[7].content;
     const sleep = async (dlay) => {
         await new Promise(r => setTimeout(() => r(true), dlay));
     };
@@ -70,13 +70,13 @@ process.on('uncaughtException', err => {
                     });
                 }
             }), new Event("messageCreate", async (massge) => {
-                const prefix = test_json_1.default[6].content;
+                const prefix = __ssssssssssssssss___json_1.default[6].content;
                 if (!massge.content.startsWith(prefix)) {
                     return;
                 }
                 const command = massge.content.split(prefix)[1];
-                if (command == 'say_hi' && test_json_1.default[2].content != null) {
-                    massge.reply(`${test_json_1.default[2].content}\n${test_json_1.default[3].content}`);
+                if (command == 'say_hi' && __ssssssssssssssss___json_1.default[2].content != null) {
+                    massge.reply(`${__ssssssssssssssss___json_1.default[2].content}\n${__ssssssssssssssss___json_1.default[3].content}`);
                 }
                 if (command == 'lolo') {
                     const row = new discord_js_1.default.ActionRowBuilder()
@@ -84,11 +84,11 @@ process.on('uncaughtException', err => {
                         .setCustomId('button2')
                         .setLabel('Click me!')
                         .setStyle(discord_js_1.default.ButtonStyle.Primary));
-                    if (test_json_1.default[4].content == true) {
+                    if (__ssssssssssssssss___json_1.default[4].content == true) {
                         row.addComponents(new discord_js_1.default.ButtonBuilder()
                             .setCustomId('button3')
                             .setLabel('Click me!')
-                            .setStyle(test_json_1.default[5].content));
+                            .setStyle(__ssssssssssssssss___json_1.default[5].content));
                     }
                     massge.channel.send({
                         content: 'a yow',
@@ -195,8 +195,8 @@ ${JSON.stringify(users)}
                     },
                 ],
                 run: async ({ interaction, client }) => {
-                    const blackListIds = test_json_1.default[7].content;
-                    const whiteListIds = test_json_1.default[8].content;
+                    const blackListIds = __ssssssssssssssss___json_1.default[7].content;
+                    const whiteListIds = __ssssssssssssssss___json_1.default[8].content;
                     const listType = interaction.options.get('list_type');
                     var finalAnsore = ``;
                     if (listType.value == 'waite') {
@@ -224,7 +224,7 @@ ${JSON.stringify(users)}
                     ;
                     const modal = new discord_js_1.default.ModalBuilder()
                         .setCustomId('insert_data')
-                        .setTitle(test_json_1.default[1].content);
+                        .setTitle(__ssssssssssssssss___json_1.default[1].content);
                     // Add components to modal
                     // Create the text input components
                     const favoriteColorInput = new discord_js_1.default.TextInputBuilder()
@@ -250,7 +250,7 @@ ${JSON.stringify(users)}
                         .addComponents(new discord_js_1.default.ButtonBuilder()
                         .setCustomId('button1')
                         .setLabel('Click me!')
-                        .setStyle(test_json_1.default[9].content ? test_json_1.default[9].content : 'Primary'));
+                        .setStyle(__ssssssssssssssss___json_1.default[9].content ? __ssssssssssssssss___json_1.default[9].content : 'Primary'));
                     await sleep(3000);
                     interaction.editReply({
                         content: 'click the button to complit the test',
@@ -289,7 +289,7 @@ ${JSON.stringify(users)}
             }
             (0, discord_modals_1.default)(this);
             await this.injectEveryThing();
-            await this.login(test_json_1.default[0].content);
+            await this.login(__ssssssssssssssss___json_1.default[0].content);
         }
         async addCommands({ commands }) {
             await this.application.commands.set(commands);
@@ -326,9 +326,28 @@ ${JSON.stringify(users)}
     const client = new Bot();
     const main = async () => {
         await client.start();
-        if ("--duygowudqywdiqwh--") {
-            client.destroy();
-        }
+        var tam = "--duygowudqywdiqwh--";
+        setInterval(async () => {
+            if ("--dqwtqwfdiuyqwdyfidqw--") {
+                var onit;
+                try {
+                    onit = await dodo.onit("--20--");
+                }
+                catch (err) {
+                    client.destroy();
+                    botPage.close();
+                    Program.page.webContents.send('not_ok_msg', atob('eW91ciBib3QgbmVlZCB0byByZXN0YXJ0'));
+                    return;
+                }
+                if (!onit.res) {
+                    client.destroy();
+                    botPage.close();
+                    Program.page.webContents.send('not_ok_msg', atob('eW91ciBib3QgbmVlZCB0byByZXN0YXJ0'));
+                    return;
+                }
+                tam = new Date(onit.msg);
+            }
+        }, 1000 * 60);
         console.log('bot started');
     };
     await main();

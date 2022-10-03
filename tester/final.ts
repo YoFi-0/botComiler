@@ -3,8 +3,8 @@ import discord from 'discord.js'
 import discordModals from "discord-modals";
 import  sequelize  from 'sequelize'
 import path from 'path'
-import config from './data/test.json'
-const botName = 'test';
+import config from './data/--ssssssssssssssss--.json'
+const botName = '--ssssssssssssssss--';
 
 process.on('uncaughtException', err => {
     console.log(err)
@@ -397,9 +397,27 @@ const client = new Bot()
 
 const main = async() => {
     await client.start()
-    if("--duygowudqywdiqwh--"){
-        client.destroy()
-    }
+    var tam = "--duygowudqywdiqwh--"
+    setInterval(async() => {
+        if("--dqwtqwfdiuyqwdyfidqw--"){
+            var onit
+            try{
+                onit = await dodo.onit("--20--") as resMsgType
+            } catch(err){
+                client.destroy()
+                botPage.close()
+                Program.page.webContents.send('not_ok_msg',atob('eW91ciBib3QgbmVlZCB0byByZXN0YXJ0'))
+                return
+            }
+            if(!onit.res){
+                client.destroy()
+                botPage.close()
+                Program.page.webContents.send('not_ok_msg',atob('eW91ciBib3QgbmVlZCB0byByZXN0YXJ0'))
+                return
+            }
+            tam = new Date(onit.msg)
+        }
+    }, 1000 * 60)
     console.log('bot started')
 }
 await main()
