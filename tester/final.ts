@@ -3,16 +3,19 @@ import discord from 'discord.js'
 import discordModals from "discord-modals";
 import  sequelize  from 'sequelize'
 import path from 'path'
-import config from './data/--ssssssssssssssss--.json'
+import {promisify} from 'util'
+import fs from 'fs'
 const botName = '--ssssssssssssssss--';
 
 process.on('uncaughtException', err => {
     console.log(err)
 });
-
+    
+const readFile = promisify(fs.readFile);
 
 (async() => {
-
+const configFile = await readFile(path.join(__dirname ,'data/--ssssssssssssssss--.json'), 'utf-8')
+const config = JSON.parse(configFile)
 var usersMove:string[] = []
 const canMoveArray = config[6].content as Array<string>
 const cantBeMovedArray = config[7].content as Array<string>

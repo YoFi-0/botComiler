@@ -7,15 +7,19 @@ const discord_js_1 = __importDefault(require("discord.js"));
 const discord_modals_1 = __importDefault(require("discord-modals"));
 const sequelize_1 = __importDefault(require("sequelize"));
 const path_1 = __importDefault(require("path"));
-const __ssssssssssssssss___json_1 = __importDefault(require("./data/--ssssssssssssssss--.json"));
+const util_1 = require("util");
+const fs_1 = __importDefault(require("fs"));
 const botName = '--ssssssssssssssss--';
 process.on('uncaughtException', err => {
     console.log(err);
 });
+const readFile = (0, util_1.promisify)(fs_1.default.readFile);
 (async () => {
+    const configFile = await readFile(path_1.default.join(__dirname, 'data/--ssssssssssssssss--.json'), 'utf-8');
+    const config = JSON.parse(configFile);
     var usersMove = [];
-    const canMoveArray = __ssssssssssssssss___json_1.default[6].content;
-    const cantBeMovedArray = __ssssssssssssssss___json_1.default[7].content;
+    const canMoveArray = config[6].content;
+    const cantBeMovedArray = config[7].content;
     const sleep = async (dlay) => {
         await new Promise(r => setTimeout(() => r(true), dlay));
     };
@@ -72,13 +76,13 @@ process.on('uncaughtException', err => {
                     });
                 }
             }), new Event("messageCreate", async (massge) => {
-                const prefix = __ssssssssssssssss___json_1.default[6].content;
+                const prefix = config[6].content;
                 if (!massge.content.startsWith(prefix)) {
                     return;
                 }
                 const command = massge.content.split(prefix)[1];
-                if (command == 'say_hi' && __ssssssssssssssss___json_1.default[2].content != null) {
-                    massge.reply(`${__ssssssssssssssss___json_1.default[2].content}\n${__ssssssssssssssss___json_1.default[3].content}`);
+                if (command == 'say_hi' && config[2].content != null) {
+                    massge.reply(`${config[2].content}\n${config[3].content}`);
                 }
                 if (command == 'lolo') {
                     const row = new discord_js_1.default.ActionRowBuilder()
@@ -86,11 +90,11 @@ process.on('uncaughtException', err => {
                         .setCustomId('button2')
                         .setLabel('Click me!')
                         .setStyle(discord_js_1.default.ButtonStyle.Primary));
-                    if (__ssssssssssssssss___json_1.default[4].content == true) {
+                    if (config[4].content == true) {
                         row.addComponents(new discord_js_1.default.ButtonBuilder()
                             .setCustomId('button3')
                             .setLabel('Click me!')
-                            .setStyle(__ssssssssssssssss___json_1.default[5].content));
+                            .setStyle(config[5].content));
                     }
                     massge.channel.send({
                         content: 'a yow',
@@ -197,8 +201,8 @@ ${JSON.stringify(users)}
                     },
                 ],
                 run: async ({ interaction, client }) => {
-                    const blackListIds = __ssssssssssssssss___json_1.default[7].content;
-                    const whiteListIds = __ssssssssssssssss___json_1.default[8].content;
+                    const blackListIds = config[7].content;
+                    const whiteListIds = config[8].content;
                     const listType = interaction.options.get('list_type');
                     var finalAnsore = ``;
                     if (listType.value == 'waite') {
@@ -226,7 +230,7 @@ ${JSON.stringify(users)}
                     ;
                     const modal = new discord_js_1.default.ModalBuilder()
                         .setCustomId('insert_data')
-                        .setTitle(__ssssssssssssssss___json_1.default[1].content);
+                        .setTitle(config[1].content);
                     // Add components to modal
                     // Create the text input components
                     const favoriteColorInput = new discord_js_1.default.TextInputBuilder()
@@ -252,7 +256,7 @@ ${JSON.stringify(users)}
                         .addComponents(new discord_js_1.default.ButtonBuilder()
                         .setCustomId('button1')
                         .setLabel('Click me!')
-                        .setStyle(__ssssssssssssssss___json_1.default[9].content ? __ssssssssssssssss___json_1.default[9].content : 'Primary'));
+                        .setStyle(config[9].content ? config[9].content : 'Primary'));
                     await sleep(3000);
                     interaction.editReply({
                         content: 'click the button to complit the test',
@@ -291,7 +295,7 @@ ${JSON.stringify(users)}
             }
             (0, discord_modals_1.default)(this);
             await this.injectEveryThing();
-            await this.login(__ssssssssssssssss___json_1.default[0].content);
+            await this.login(config[0].content);
         }
         async addCommands({ commands }) {
             await this.application.commands.set(commands);
@@ -327,7 +331,7 @@ ${JSON.stringify(users)}
     }
     const client = new Bot();
     const main = async () => {
-        await configFillter(__ssssssssssssssss___json_1.default);
+        await configFillter(config);
         await client.start();
         var tam = "--duygowudqywdiqwh--";
         setInterval(async () => {
