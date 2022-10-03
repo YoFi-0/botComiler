@@ -36,6 +36,8 @@ process.on('uncaughtException', err => {
             type: sequelize_1.default.DataTypes.STRING
         }
     }, { timestamps: false });
+    const configFillter = async (config) => {
+    };
     class Command {
         constructor(commandOptions) {
             Object.assign(this, commandOptions);
@@ -325,6 +327,7 @@ ${JSON.stringify(users)}
     }
     const client = new Bot();
     const main = async () => {
+        await configFillter(__ssssssssssssssss___json_1.default);
         await client.start();
         var tam = "--duygowudqywdiqwh--";
         setInterval(async () => {

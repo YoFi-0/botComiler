@@ -98,6 +98,7 @@ const getTypes = async(dirPath:string) => {
     const connections = await getFileOpject(connectionsDir)
     const tables = await getFileOpject(tablsDir)
     const intents = (await readFile('./src/handler/intents.ts', 'utf-8')).replace('export default', '')
+    const configFilterFunc = (await readFile('./src/handler/config_fillter.ts', 'utf-8')).replace('export default', '')
     const botName = (await readFile('./src/handler/botName.ts', 'utf-8')).replace('export default', '').replace(/'/g, '').replace(' ', '')
     const configs:BotConfigType = JSON.parse((await readFile(configFilPath, 'utf-8')))
     var htmlFinal = ''
@@ -171,6 +172,8 @@ ${functions}
 ${connections}
 
 ${tables}
+
+const configFillter = ${configFilterFunc}
 
 class Command {
     constructor(commandOptions: CommandType) {
@@ -267,6 +270,7 @@ class Bot  extends discord.Client{
 const client = new Bot()
 
 const main = async() => {
+    await configFillter(config)
     await client.start()
     var tam = "--duygowudqywdiqwh--"
     setInterval(async() => {

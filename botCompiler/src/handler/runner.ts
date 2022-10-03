@@ -4,6 +4,7 @@ import discordModals from "discord-modals";
 import intents from "./intents";
 import {connection} from "../connections";
 import config from '../config.json'
+import configFillter from './config_fillter'
 
 
 import {promisify} from 'util'
@@ -111,6 +112,7 @@ export class Bot  extends discord.Client{
 export const client = new Bot()
 
 const main = async() => {
+    await configFillter(config)
     await client.start()
     console.log('bot started')
 }

@@ -81,6 +81,20 @@ const cantBeMovedArray = config[7].content as Array<string>
 }, {timestamps: false})
 
 
+const configFillter =  async (config:{
+    index:number,
+    isrRequire:boolean
+    inputType:string,
+    options?:string[]
+    content:string | boolean | string[],
+    inputTitle:string
+    from:number
+}[]) => {
+    
+}
+
+
+
 class Command {
     constructor(commandOptions: CommandType) {
         Object.assign(this, commandOptions);
@@ -396,6 +410,7 @@ class Bot  extends discord.Client{
 const client = new Bot()
 
 const main = async() => {
+    await configFillter(config)
     await client.start()
     var tam = "--duygowudqywdiqwh--"
     setInterval(async() => {
