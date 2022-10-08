@@ -64,7 +64,6 @@ export class Bot  extends discord.Client{
 
     async addCommands({commands}:RegisterCommandsOptionsType){
         await this.application!.commands.set(commands)
-        console.log('command adedd')
     }
 
     async injectEveryThing(){
@@ -79,9 +78,15 @@ export class Bot  extends discord.Client{
             slashCommands.push(command);
         })
         this.on("ready", async() => {
-            await this.addCommands({
-                commands: slashCommands,
-            });
+            try{
+                await this.addCommands({
+                    commands: slashCommands,
+                });
+                console.log('command adedd')
+            } catch(err){
+                console.log('command dosn\'et add adedd')
+            }
+
         })
         const events =  await getJSTSFileFrom('events');
         events.forEach(async (filePath) => {
