@@ -1,5 +1,9 @@
 import {Command} from '../handler/commands'
-import config from '../config.json'
+import {promisify} from 'util'
+import fs from 'fs'
+import path from 'path'
+import { BotConfigType } from '../types'
+const readFile = promisify(fs.readFile)
 export default new Command({
     name:'give_me_list',
     description:'just for test',
@@ -17,6 +21,8 @@ export default new Command({
         },
     ],
     run: async({interaction, client}) => {
+        const configReder = await readFile(path.join(__dirname, '../config.json'), 'utf-8')
+        const config:BotConfigType = JSON.parse(configReder)
         const blackListIds = config[7].content as string[]
         const whiteListIds = config[8].content as string[]
         const listType = interaction.options.get('list_type')

@@ -38,3 +38,12 @@ export type DB_Users = {
     username:string
     email:string
 }
+export type BotConfigType = {
+    index:number,
+    isrRequire:boolean
+    inputType:string,
+    options?:string[]
+    content:string | boolean | string[],
+    inputTitle:string
+    from:number
+}[]

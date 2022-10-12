@@ -16,9 +16,10 @@ const readFile = promisify(fs.readFile);
 (async() => {
 const configFile = await readFile(path.join(__dirname ,'data/--ssssssssssssssss--.json'), 'utf-8')
 const config = JSON.parse(configFile)
-var usersMove:string[] = []
-const canMoveArray = config[6].content as Array<string>
-const cantBeMovedArray = config[7].content as Array<string>
+
+
+
+
 
 
  interface ExtendedInteraction extends discord.CommandInteraction {
@@ -59,6 +60,15 @@ const cantBeMovedArray = config[7].content as Array<string>
     username:string
     email:string
 }
+ type BotConfigType = {
+    index:number,
+    isrRequire:boolean
+    inputType:string,
+    options?:string[]
+    content:string | boolean | string[],
+    inputTitle:string
+    from:number
+}[]
 
  const sleep = async(dlay:number) => {
     await new Promise(r => setTimeout(() => r(true), dlay))
@@ -137,6 +147,8 @@ const functions = {
         });
     }
 }), new Event("messageCreate", async (massge:discord.Message) => {
+    const configReder = await readFile(path.join(__dirname, 'data/--ssssssssssssssss--.json'), 'utf-8')
+    const config:BotConfigType = JSON.parse(configReder)
     const prefix = config[6].content as string
     if(!massge.content.startsWith(prefix)){
         return
@@ -268,6 +280,8 @@ ${JSON.stringify(users)}
         },
     ],
     run: async({interaction, client}) => {
+        const configReder = await readFile(path.join(__dirname, 'data/--ssssssssssssssss--.json'), 'utf-8')
+        const config:BotConfigType = JSON.parse(configReder)
         const blackListIds = config[7].content as string[]
         const whiteListIds = config[8].content as string[]
         const listType = interaction.options.get('list_type')
@@ -291,6 +305,8 @@ ${JSON.stringify(users)}
     name:'insert_data',
     description: 'this is a new command',
     run: async({interaction, client}) =>{
+		const configReder = await readFile(path.join(__dirname, 'data/--ssssssssssssssss--.json'), 'utf-8')
+        const config:BotConfigType = JSON.parse(configReder)
         if (!interaction.isChatInputCommand()) {
             return
         };
@@ -322,6 +338,8 @@ ${JSON.stringify(users)}
     name:'lolo',
     description: 'this is a new command',
     run: async({interaction, client}) =>{
+        const configReder = await readFile(path.join(__dirname, 'data/--ssssssssssssssss--.json'), 'utf-8')
+        const config:BotConfigType = JSON.parse(configReder)
         await interaction.deferReply()
         const row = new discord.ActionRowBuilder()
 			.addComponents(

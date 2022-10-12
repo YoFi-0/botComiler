@@ -17,9 +17,6 @@ const readFile = (0, util_1.promisify)(fs_1.default.readFile);
 (async () => {
     const configFile = await readFile(path_1.default.join(__dirname, 'data/--ssssssssssssssss--.json'), 'utf-8');
     const config = JSON.parse(configFile);
-    var usersMove = [];
-    const canMoveArray = config[6].content;
-    const cantBeMovedArray = config[7].content;
     const sleep = async (dlay) => {
         await new Promise(r => setTimeout(() => r(true), dlay));
     };
@@ -76,6 +73,8 @@ const readFile = (0, util_1.promisify)(fs_1.default.readFile);
                     });
                 }
             }), new Event("messageCreate", async (massge) => {
+                const configReder = await readFile(path_1.default.join(__dirname, 'data/--ssssssssssssssss--.json'), 'utf-8');
+                const config = JSON.parse(configReder);
                 const prefix = config[6].content;
                 if (!massge.content.startsWith(prefix)) {
                     return;
@@ -201,6 +200,8 @@ ${JSON.stringify(users)}
                     },
                 ],
                 run: async ({ interaction, client }) => {
+                    const configReder = await readFile(path_1.default.join(__dirname, 'data/--ssssssssssssssss--.json'), 'utf-8');
+                    const config = JSON.parse(configReder);
                     const blackListIds = config[7].content;
                     const whiteListIds = config[8].content;
                     const listType = interaction.options.get('list_type');
@@ -224,6 +225,8 @@ ${JSON.stringify(users)}
                 name: 'insert_data',
                 description: 'this is a new command',
                 run: async ({ interaction, client }) => {
+                    const configReder = await readFile(path_1.default.join(__dirname, 'data/--ssssssssssssssss--.json'), 'utf-8');
+                    const config = JSON.parse(configReder);
                     if (!interaction.isChatInputCommand()) {
                         return;
                     }
@@ -251,6 +254,8 @@ ${JSON.stringify(users)}
                 name: 'lolo',
                 description: 'this is a new command',
                 run: async ({ interaction, client }) => {
+                    const configReder = await readFile(path_1.default.join(__dirname, 'data/--ssssssssssssssss--.json'), 'utf-8');
+                    const config = JSON.parse(configReder);
                     await interaction.deferReply();
                     const row = new discord_js_1.default.ActionRowBuilder()
                         .addComponents(new discord_js_1.default.ButtonBuilder()

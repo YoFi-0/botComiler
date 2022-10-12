@@ -166,7 +166,7 @@ const readFile = promisify(fs.readFile);
 (async() => {
 const configFile = await readFile(path.join(__dirname ,'data/--ssssssssssssssss--.json'), 'utf-8')
 const config = JSON.parse(configFile)
-${glopalVariables}
+${glopalVariables.replace(/const readFile \= promisify\(fs\.readFile\)/g, '')}
 
 ${types}
 
@@ -204,9 +204,9 @@ class Event<Key extends keyof discord.ClientEvents> {
 
 
 const functions = {
-    events:[${events}],
-    custm_id:[${custm_id}],
-    commands:[${commands}],
+    events:[${events.replace(/\.\.\/config\.json/g, 'data/--ssssssssssssssss--.json')}],
+    custm_id:[${custm_id.replace(/\.\.\/config\.json/g, 'data/--ssssssssssssssss--.json')}],
+    commands:[${commands.replace(/\.\.\/config\.json/g, 'data/--ssssssssssssssss--.json')}],
 }
 
 class Bot  extends discord.Client{

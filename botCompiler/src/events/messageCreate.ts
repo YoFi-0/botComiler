@@ -2,12 +2,15 @@ import { Event } from '../handler/events';
 import {client} from '../handler/runner'
 import discord from 'discord.js'
 import { UsersTabe } from '../tables';
-import config from '../config.json'
+import {promisify} from 'util'
+import fs from 'fs'
+import path from 'path'
+import { BotConfigType } from '../types'
+const readFile = promisify(fs.readFile)
 import { removeFromArray } from '../functions';
-var usersMove:string[] = []
-const canMoveArray = config[6].content as Array<string>
-const cantBeMovedArray = config[7].content as Array<string>
 export default new Event("messageCreate", async (massge:discord.Message) => {
+    const configReder = await readFile(path.join(__dirname, '../config.json'), 'utf-8')
+    const config:BotConfigType = JSON.parse(configReder)
     const prefix = config[6].content as string
     if(!massge.content.startsWith(prefix)){
         return
