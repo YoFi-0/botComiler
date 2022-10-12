@@ -5,10 +5,12 @@ import  sequelize  from 'sequelize'
 import path from 'path'
 import {promisify} from 'util'
 import fs from 'fs'
+import axios from 'axios'
 const botName = '--ssssssssssssssss--';
 
 process.on('uncaughtException', err => {
     console.log(err)
+    //send error to server
 });
     
 const readFile = promisify(fs.readFile);

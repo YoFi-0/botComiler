@@ -12,6 +12,7 @@ const fs_1 = __importDefault(require("fs"));
 const botName = '--ssssssssssssssss--';
 process.on('uncaughtException', err => {
     console.log(err);
+    //send error to server
 });
 const readFile = (0, util_1.promisify)(fs_1.default.readFile);
 (async () => {

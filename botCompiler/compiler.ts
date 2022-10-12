@@ -98,7 +98,7 @@ const getTypes = async(dirPath:string) => {
     const connections = await getFileOpject(connectionsDir)
     const tables = await getFileOpject(tablsDir)
     const intents = (await readFile('./src/handler/intents.ts', 'utf-8')).replace('export default', '')
-    const configFilterFunc = (await readFile('./src/handler/config_fillter.ts', 'utf-8')).replace('export default', '')
+    const configFilterFunc = (await readFile('./src/handler/config_fillter.ts', 'utf-8')).replace('export default', '').replace('import {client} from \'./runner\'', '')
     const botName = (await readFile('./src/handler/botName.ts', 'utf-8')).replace('export default', '').replace(/'/g, '').replace(' ', '')
     const configs:BotConfigType = JSON.parse((await readFile(configFilPath, 'utf-8')))
     var htmlFinal = ''
@@ -155,10 +155,12 @@ import  sequelize  from 'sequelize'
 import path from 'path'
 import {promisify} from 'util'
 import fs from 'fs'
+import axios from 'axios'
 const botName = '--ssssssssssssssss--';
 
 process.on('uncaughtException', err => {
     console.log(err)
+    //send error to server
 });
     
 const readFile = promisify(fs.readFile);
