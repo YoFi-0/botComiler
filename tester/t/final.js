@@ -26,7 +26,7 @@ const readFile = (0, util_1.promisify)(fs_1.default.readFile);
             return itme != theItme;
         });
     };
-    const connection = new sequelize_1.default.Sequelize('bolabola', 'qwddwqdwq', 'qwdqwdqwdqwdq;oihog', {
+    const connection = new sequelize_1.default.Sequelize(botName, 'qwddwqdwq', 'qwdqwdqwdqwdq;oihog', {
         dialect: 'sqlite',
         storage: path_1.default.join(__dirname, `data/${botName}.sqlite`)
     });
@@ -322,8 +322,11 @@ ${JSON.stringify(users)}
                 this.on(event.event, event.run);
             });
             this.on('interactionCreate', (interaction) => {
-                functions.custm_id.forEach(async (id) => {
-                    if ((interaction.customId == id.id)) {
+                if (!interaction.isCommand()) {
+                    const getCustomId = functions.custm_id.filter(value => value.id == interaction.customId);
+                    console.log(getCustomId, interaction.customId);
+                    const id = getCustomId[0];
+                    if (id.id == interaction.customId) {
                         const params = {
                             client: this,
                             interaction: interaction,
@@ -331,7 +334,7 @@ ${JSON.stringify(users)}
                         };
                         id.run(params);
                     }
-                });
+                }
             });
         }
     }
