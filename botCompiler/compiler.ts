@@ -257,9 +257,12 @@ class Bot  extends discord.Client{
         })
  
         
-        this.on('interactionCreate', (interaction:any) => {
-            functions.custm_id.forEach(async(id:any) => {
-                if((interaction.customId == id.id)){
+       this.on('interactionCreate', (interaction:any) => {
+            if(!interaction.isCommand()){
+                    const getCustomId = functions.custm_id.filter(value => value.id == interaction.customId)
+                    console.log(getCustomId, interaction.customId)
+                    const id:any = getCustomId[0]
+                    if(id.id == interaction.customId){
                     const params:RunOptions = {
                         client:this,
                         interaction:interaction,
@@ -267,7 +270,7 @@ class Bot  extends discord.Client{
                     }
                     id.run(params)
                 }
-            })
+            }
         })
     }
 }

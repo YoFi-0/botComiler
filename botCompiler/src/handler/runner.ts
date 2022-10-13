@@ -98,11 +98,10 @@ export class Bot  extends discord.Client{
 
         const custm_id =  await getJSTSFileFrom('custm_id');
         
-        this.on('interactionCreate', (interaction:any) => {
-            custm_id.forEach(async(filePath) => {
-                const id:Custom_idType = await this.importFile(
-                    filePath!
-                );
+        this.on('interactionCreate', async(interaction:any) => {
+            if(custm_id.includes(`../custm_id/${interaction.customId}`)){
+                console.log(interaction.customId)
+                const id:Custom_idType = await this.importFile(custm_id[custm_id.indexOf(`../custm_id/${interaction.customId}`)]!);
                 if((interaction.customId == id.id)){
                     const params:CustmIdFunctionOptions = {
                         client:this,
@@ -110,7 +109,7 @@ export class Bot  extends discord.Client{
                     }
                     id.run(params)
                 }
-            })
+            }
         })
     }
 }
